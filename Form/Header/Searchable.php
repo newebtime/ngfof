@@ -7,7 +7,7 @@
 
 namespace Ngfof\Form\Header;
 
-use FOF30\Form\Header\HeaderBase as HeaderBase;
+use FOF30\Form\Header\Field as HeaderBase;
 
 /**
  * Form Header class for F0F
