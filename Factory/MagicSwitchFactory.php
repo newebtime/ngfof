@@ -10,8 +10,10 @@ namespace Ngfof\Factory;
 use FOF30\Container\Container;
 use FOF30\Factory\Exception\FormLoadData;
 use FOF30\Factory\Exception\FormLoadFile;
+use FOF30\Factory\Exception\ToolbarNotFound;
 use FOF30\Factory\Scaffolding\Builder as ScaffoldingBuilder;
 use FOF30\Factory\BasicFactory;
+use FOF30\Toolbar\Toolbar;
 use FOF30\View\View;
 
 /**
@@ -100,15 +102,39 @@ class MagicSwitchFactory extends BasicFactory
 	{
 		$appConfig = $this->container->appConfig;
 
+		$defaultView = $this->container->dispatcher->defaultView;
+		$view = ucfirst($this->container->input->getCmd('view', $defaultView));
+
 		$defaultConfig = array(
 			'useConfigurationFile'  => true,
-			'renderFrontendButtons' => in_array($appConfig->get("views.*.config.renderFrontendButtons"), array(true, 'true', 'yes', 'on', 1)),
-			'renderFrontendSubmenu' => in_array($appConfig->get("views.*.config.renderFrontendSubmenu"), array(true, 'true', 'yes', 'on', 1)),
+			'renderFrontendButtons' => in_array($appConfig->get("views.$view.config.renderFrontendButtons"), array(true, 'true', 'yes', 'on', 1)),
+			'renderFrontendSubmenu' => in_array($appConfig->get("views.$view.config.renderFrontendSubmenu"), array(true, 'true', 'yes', 'on', 1)),
 		);
 
 		$config = array_merge($defaultConfig, $config);
 
-		return parent::toolbar($config);
+		$toolbarClass = $this->container->getNamespacePrefix() . 'Toolbar\\Toolbar';
+
+		try
+		{
+			return $this->createToolbar($toolbarClass, $config);
+		}
+		catch (ToolbarNotFound $e)
+		{
+			// Not found. Let's go on.
+		}
+
+		$toolbarClass = $this->container->getNamespacePrefix('inverse') . 'Toolbar\\Toolbar';
+
+		try
+		{
+			return $this->createToolbar($toolbarClass, $config);
+		}
+		catch (ToolbarNotFound $e)
+		{
+			// Not found. Return the default Toolbar
+			return new Toolbar($this->container, $config);
+		}
 	}
 
 	/**
