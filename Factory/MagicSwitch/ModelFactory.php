@@ -8,7 +8,6 @@
 namespace Ngfof\Factory\MagicSwitch;
 
 use FOF30\Factory\Exception\ModelNotFound;
-use FOF30\Inflector\Inflector;
 use FOF30\Model\DataModel;
 use FOF30\Model\TreeModel;
 
@@ -66,11 +65,11 @@ class ModelFactory extends BaseFactory
 			$dataModelClassName = '\\FOF30\\Model\\DataModel';
 		}
 
-		$treeModelClassName = $this->container->getNamespacePrefix() . 'Model\\' . Inflector::singularize($name);
+		$treeModelClassName = $this->container->getNamespacePrefix() . 'Model\\' . $this->container->inflector->singularize($name);
 
 		if (!class_exists($treeModelClassName, true))
 		{
-			$treeModelClassName = $this->container->getNamespacePrefix('inverse') . 'Model\\' . Inflector::singularize($name);
+			$treeModelClassName = $this->container->getNamespacePrefix('inverse') . 'Model\\' . $this->container->inflector->singularize($name);
 		}
 
 		if (!class_exists($treeModelClassName, true))

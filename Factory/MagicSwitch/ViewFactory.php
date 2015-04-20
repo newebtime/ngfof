@@ -8,7 +8,6 @@
 namespace Ngfof\Factory\MagicSwitch;
 
 use FOF30\Factory\Exception\ViewNotFound;
-use FOF30\Inflector\Inflector;
 use FOF30\Model\DataModel;
 use FOF30\View\DataView\DataViewInterface;
 
@@ -46,11 +45,11 @@ class ViewFactory extends BaseFactory
 
 		$config = array_merge($defaultConfig, $config);
 
-		$className = $this->container->getNamespacePrefix() . 'View\\' . Inflector::singularize($name) . '\\' . ucfirst($viewType);
+		$className = $this->container->getNamespacePrefix() . 'View\\' . $this->container->inflector->singularize($name) . '\\' . ucfirst($viewType);
 
 		if (!class_exists($className, true))
 		{
-			$className = $this->container->getNamespacePrefix('inverse') . 'View\\' . Inflector::singularize($name) . '\\' . ucfirst($viewType);
+			$className = $this->container->getNamespacePrefix('inverse') . 'View\\' . $this->container->inflector->singularize($name) . '\\' . ucfirst($viewType);
 		}
 
 		if (!class_exists($className, true))
