@@ -203,18 +203,6 @@ HTML;
 
 			if (!empty($sortFields))
 			{
-				// Display the field sort order
-				$asc_sel	 = ($form->getView()->getLists()->order_Dir == 'asc') ? 'selected="selected"' : '';
-				$desc_sel	 = ($form->getView()->getLists()->order_Dir == 'desc') ? 'selected="selected"' : '';
-				$html .= "\t" . '<div class="btn-group pull-right hidden-phone">' . "\n";
-				$html .= "\t\t" . '<label for="directionTable" class="element-invisible">' . \JText::_('JFIELD_ORDERING_DESC') . '</label>' . "\n";
-				$html .= "\t\t" . '<select name="directionTable" id="directionTable" class="input-medium" onchange="Joomla.orderTable()">' . "\n";
-				$html .= "\t\t\t" . '<option value="">' . \JText::_('JFIELD_ORDERING_DESC') . '</option>' . "\n";
-				$html .= "\t\t\t" . '<option value="asc" ' . $asc_sel . '>' . \JText::_('JGLOBAL_ORDER_ASCENDING') . '</option>' . "\n";
-				$html .= "\t\t\t" . '<option value="desc" ' . $desc_sel . '>' . \JText::_('JGLOBAL_ORDER_DESCENDING') . '</option>' . "\n";
-				$html .= "\t\t" . '</select>' . "\n";
-				$html .= "\t" . '</div>' . "\n\n";
-
 				// Display the sort fields
 				$html .= "\t" . '<div class="btn-group pull-right">' . "\n";
 				$html .= "\t\t" . '<label for="sortTable" class="element-invisible">' . \JText::_('JGLOBAL_SORT_BY') . '</label>' . "\n";
@@ -240,6 +228,8 @@ HTML;
 
 		if ($count = count($items))
 		{
+			$m = 1;
+
 			foreach ($items as $i => $item)
 			{
 				$rowHtml = '';
@@ -273,7 +263,9 @@ HTML;
 				}
 
 				$html .= "\t\t\t\t<div class=\"$rowClass\">\n" . $rowHtml . "\t\t\t\t</div>\n";
-				$html .= $i % 4 == 0 ? "\t\t\t" . '</div><div class="row-fluid">' : '';
+				$html .= $m % 4 == 0 ? "\t\t\t" . '</div><div class="row-fluid">' : '';
+
+				$m++;
 			}
 		}
 		elseif ($norows_placeholder)
