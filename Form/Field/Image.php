@@ -29,7 +29,7 @@ class Image extends FieldBase
 	public function getFieldContents(array $fieldOptions = array())
 	{
 		if (!isset($this->element['url'])
-			|| ($this->item instanceof DataModel)) {
+			|| (!$this->item instanceof DataModel)) {
 			return parent::getFieldContents($fieldOptions);
 		}
 
