@@ -14,16 +14,4 @@ use FOF30\Form\Field\Button as FieldBase;
  */
 class Button extends FieldBase
 {
-	/**
-	 * Replace string with tags that reference fields
-	 *
-	 * @param   string  $text  Text to process
-	 *
-	 * @return  string         Text with tags replace
-	 */
-	protected function parseFieldTags($text)
-	{
-		$ret = parent::parseFieldTags($text);
-		return str_replace('[TOKEN]', \JSession::getFormToken(), $ret);
-	}
 }
