@@ -30,7 +30,7 @@ class FormFactory extends BaseFactory
 
 		if (!class_exists($className, true))
 		{
-			$className = '\\FOF30\\Form\\Form';
+			$className = '\\Ngfof\\Form\\Form';
 		}
 
 		// Get a new form instance
