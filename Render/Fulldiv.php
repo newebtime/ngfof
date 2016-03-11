@@ -21,6 +21,9 @@ use FOF30\Render\RenderInterface;
  */
 class Fulldiv extends RenderBase implements RenderInterface
 {
+	/**
+	 * @inheritdoc
+	 */
 	public function __construct(Container $container)
 	{
 		$this->priority	 = 59;
@@ -30,12 +33,7 @@ class Fulldiv extends RenderBase implements RenderInterface
 	}
 
 	/**
-	 * Renders a Form for a Browse view and returns the corresponding HTML
-	 *
-	 * @param   Form   &$form  The form to render
-	 * @param   DataModel  $model  The model providing our data
-	 *
-	 * @return  string    The HTML rendering of the form
+	 * @inheritdoc
 	 */
 	public function renderFormBrowse(Form &$form, DataModel $model)
 	{
