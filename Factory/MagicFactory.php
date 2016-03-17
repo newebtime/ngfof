@@ -23,6 +23,16 @@ class MagicFactory extends BaseFactory
 	/**
 	 * @inheritdoc
 	 */
+	public function controller($viewName, array $config = array())
+	{
+		$magic = new Magic\ControllerFactory($this->container);
+
+		return $magic->make($viewName, $config);
+	}
+
+	/**
+	 * @inheritdoc
+	 */
 	public function model($viewName, array $config = array())
 	{
 		$magic = new Magic\ModelFactory($this->container);
